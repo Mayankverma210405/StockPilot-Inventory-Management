@@ -56,12 +56,12 @@ export function LoginPage() {
           <form onSubmit={submit}>
             <label className="field-label">Work email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@company.com" required autoFocus /></label>
             <label className="field-label">Password<div className="password-input"><input type={showPassword ? 'text' : 'password'} value={password} onChange={(event) => setPassword(event.target.value)} required /><button type="button" onClick={() => setShowPassword((show) => !show)} aria-label="Toggle password visibility">{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></div></label>
-            <div className="login-options"><label className="checkbox-label"><input type="checkbox" defaultChecked /> Remember me</label><button type="button" className="text-button" onClick={() => setError('Contact your workspace administrator to reset your password.')}>Forgot password?</button></div>
+            
             {error && <div className="form-error">{error}</div>}
             <button className="button primary login-submit" disabled={loading}>{loading ? 'Signing in…' : <>Sign in <ArrowRight size={18} /></>}</button>
           </form>
           <div className="demo-divider"><span>Portfolio demo accounts</span></div>
-          <div className="demo-buttons"><button onClick={() => selectDemo('admin')} className={email.startsWith('admin') ? 'selected' : ''}><ShieldCheck size={18} /><span><strong>Administrator</strong><small>Full system access</small></span></button><button onClick={() => selectDemo('manager')} className={email.startsWith('manager') ? 'selected' : ''}><LockKeyhole size={18} /><span><strong>Inventory manager</strong><small>Operations access</small></span></button></div>
+          <div className="demo-buttons"><button onClick={() => selectDemo('admin')} className={email.includes('.admin@') ? 'selected' : ''}><ShieldCheck size={18} /><span><strong>Administrator</strong><small>Full system access</small></span></button><button onClick={() => selectDemo('manager')} className={email.includes('.manager@') ? 'selected' : ''}><LockKeyhole size={18} /><span><strong>Inventory manager</strong><small>Operations access</small></span></button></div>
           <p className="login-legal">Frontend portfolio demo with simulated role-based access. Demo data is stored in your browser.</p>
         </div>
       </section>

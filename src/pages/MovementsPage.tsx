@@ -8,8 +8,20 @@ import { EmptyState, Modal, StatusBadge, Toast } from '../components/UI'
 
 export function MovementsPage() {
   const { movements, products, warehouses } = useApp()
-  const [params] = useSearchParams()
-  const [open, setOpen] = useState(params.get('action') === 'new')
+  const [params, setParams] = useSearchParams()
+  const open = params.get('action') === 'new'
+
+  const setOpen = (value: boolean) => {
+    const nextParams = new URLSearchParams(params)
+
+    if (value) {
+      nextParams.set('action', 'new')
+    } else {
+      nextParams.delete('action')
+    }
+
+    setParams(nextParams, { replace: true })
+  }
   const [search, setSearch] = useState('')
   const [type, setType] = useState('ALL')
   const [toast, setToast] = useState('')

@@ -10,9 +10,25 @@ type ReportTab = 'current' | 'movements' | 'low-stock'
 
 export function ReportsPage() {
   const { products, warehouses, movements } = useApp()
-  const [params] = useSearchParams()
-  const initial = params.get('tab')
-  const [tab, setTab] = useState<ReportTab>(initial === 'low-stock' || initial === 'movements' ? initial : 'current')
+  const [params, setParams] = useSearchParams()
+  const requestedTab = params.get('tab')
+
+  const tab: ReportTab =
+    requestedTab === 'low-stock' || requestedTab === 'movements'
+      ? requestedTab
+      : 'current'
+
+  const setTab = (nextTab: ReportTab) => {
+    const nextParams = new URLSearchParams(params)
+
+    if (nextTab === 'current') {
+      nextParams.delete('tab')
+    } else {
+      nextParams.set('tab', nextTab)
+    }
+
+    setParams(nextParams, { replace: true })
+  }
   const [warehouseId, setWarehouseId] = useState('ALL')
   const [toast, setToast] = useState('')
   const lowStock = products.filter((product) => totalStock(product) <= product.reorderPoint)

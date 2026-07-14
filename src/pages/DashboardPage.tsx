@@ -10,8 +10,8 @@ export function DashboardPage() {
   const units = products.reduce((sum, product) => sum + totalStock(product), 0)
   const inventoryValue = products.reduce((sum, product) => sum + totalStock(product) * product.cost, 0)
   const lowStock = products.filter((product) => totalStock(product) <= product.reorderPoint)
-  const thisMonthIn = movements.filter((movement) => movement.type === 'IN').reduce((sum, movement) => sum + movement.quantity, 0)
-  const thisMonthOut = movements.filter((movement) => movement.type === 'OUT').reduce((sum, movement) => sum + movement.quantity, 0)
+  const totalStockIn = movements.filter((movement) => movement.type === 'IN').reduce((sum, movement) => sum + movement.quantity, 0)
+  const totalStockOut = movements.filter((movement) => movement.type === 'OUT').reduce((sum, movement) => sum + movement.quantity, 0)
   const maxWarehouseStock = Math.max(...warehouses.map((warehouse) => products.reduce((sum, product) => sum + (product.stocks[warehouse.id] ?? 0), 0)))
 
   return (
@@ -22,14 +22,14 @@ export function DashboardPage() {
       </div>
       <section className="stats-grid">
         <article className="stat-card"><div className="stat-icon indigo"><Boxes size={21} /></div><span>Total products</span><strong>{number.format(products.length)}</strong><small className="positive"><TrendingUp size={14} /> Active catalog</small></article>
-        <article className="stat-card"><div className="stat-icon blue"><PackageCheck size={21} /></div><span>Units on hand</span><strong>{number.format(units)}</strong><small className="positive"><ArrowUpRight size={14} /> {number.format(thisMonthIn)} received</small></article>
+        <article className="stat-card"><div className="stat-icon blue"><PackageCheck size={21} /></div><span>Units on hand</span><strong>{number.format(units)}</strong><small className="positive"><ArrowUpRight size={14} /> {number.format(totalStockIn)} received</small></article>
         <article className="stat-card"><div className="stat-icon green"><CircleDollarSign size={21} /></div><span>Inventory value</span><strong>{currency.format(inventoryValue)}</strong><small>Based on average cost</small></article>
         <article className="stat-card warning-card"><div className="stat-icon amber"><AlertTriangle size={21} /></div><span>Low-stock items</span><strong>{lowStock.length}</strong><small className={lowStock.length ? 'negative' : 'positive'}>{lowStock.length ? 'Action recommended' : 'All levels healthy'}</small></article>
       </section>
       <div className="dashboard-grid">
         <section className="panel movement-overview">
-          <div className="panel-header"><div><h3>Stock activity</h3><p>Recent inbound and outbound volume</p></div><select aria-label="Activity range" defaultValue="30"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select></div>
-          <div className="activity-totals"><div><span className="movement-icon movement-in"><ArrowDownLeft size={18} /></span><p>Stock in<strong>{number.format(thisMonthIn)} units</strong></p></div><div><span className="movement-icon movement-out"><ArrowUpRight size={18} /></span><p>Stock out<strong>{number.format(thisMonthOut)} units</strong></p></div><div className="activity-net"><p>Net change<strong className={thisMonthIn - thisMonthOut >= 0 ? 'positive-text' : 'negative-text'}>{thisMonthIn - thisMonthOut >= 0 ? '+' : ''}{number.format(thisMonthIn - thisMonthOut)}</strong></p></div></div>
+          <div className="panel-header"><div><h3>Stock activity</h3><p>Sample seven-day activity from the seeded demo</p></div><span className="category-tag">Demo data</span></div>
+          <div className="activity-totals"><div><span className="movement-icon movement-in"><ArrowDownLeft size={18} /></span><p>Stock in<strong>{number.format(totalStockIn)} units</strong></p></div><div><span className="movement-icon movement-out"><ArrowUpRight size={18} /></span><p>Stock out<strong>{number.format(totalStockOut)} units</strong></p></div><div className="activity-net"><p>Net change<strong className={totalStockIn - totalStockOut >= 0 ? 'positive-text' : 'negative-text'}>{totalStockIn - totalStockOut >= 0 ? '+' : ''}{number.format(totalStockIn - totalStockOut)}</strong></p></div></div>
           <div className="chart-area" aria-label="Stock activity chart">
             <div className="chart-y"><span>120</span><span>90</span><span>60</span><span>30</span><span>0</span></div>
             <div className="chart-bars">
