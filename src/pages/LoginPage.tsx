@@ -6,7 +6,7 @@ import { useApp } from '../context/AppContext'
 export function LoginPage() {
   const { login } = useApp()
   const navigate = useNavigate()
-  const [email, setEmail] = useState('admin@stockpilot.io')
+  const [email, setEmail] = useState('mayank.admin@stockpilot.demo')
   const [password, setPassword] = useState('admin123')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -27,7 +27,7 @@ export function LoginPage() {
   }
 
   const selectDemo = (role: 'admin' | 'manager') => {
-    setEmail(role === 'admin' ? 'admin@stockpilot.io' : 'manager@stockpilot.io')
+    setEmail(role === 'admin' ? 'mayank.admin@stockpilot.demo' : 'mayank.manager@stockpilot.demo')
     setPassword(role === 'admin' ? 'admin123' : 'manager123')
     setError('')
   }
@@ -42,9 +42,9 @@ export function LoginPage() {
           <h1>Every item.<br />Every location.<br /><em>Always in view.</em></h1>
           <p>A single source of truth for stock levels, warehouse operations, and inventory decisions.</p>
           <div className="login-proof">
-            <div><strong>99.9%</strong><span>Inventory accuracy</span></div>
-            <div><strong>3×</strong><span>Faster operations</span></div>
-            <div><strong>24/7</strong><span>Real-time visibility</span></div>
+            <div><strong>3</strong><span>Warehouse locations</span></div>
+            <div><strong>2</strong><span>Role-based accounts</span></div>
+            <div><strong>CSV</strong><span>Report exports</span></div>
           </div>
         </div>
         <div className="showcase-footer"><CheckCircle2 size={17} /> Trusted workflows for modern operations teams</div>
@@ -62,7 +62,7 @@ export function LoginPage() {
           </form>
           <div className="demo-divider"><span>Portfolio demo accounts</span></div>
           <div className="demo-buttons"><button onClick={() => selectDemo('admin')} className={email.startsWith('admin') ? 'selected' : ''}><ShieldCheck size={18} /><span><strong>Administrator</strong><small>Full system access</small></span></button><button onClick={() => selectDemo('manager')} className={email.startsWith('manager') ? 'selected' : ''}><LockKeyhole size={18} /><span><strong>Inventory manager</strong><small>Operations access</small></span></button></div>
-          <p className="login-legal">Protected by enterprise-grade access controls. Demo data is stored in your browser.</p>
+          <p className="login-legal">Frontend portfolio demo with simulated role-based access. Demo data is stored in your browser.</p>
         </div>
       </section>
     </main>

@@ -15,8 +15,8 @@ Open the URL printed by Vite (normally `http://localhost:5173`).
 
 | Role | Email | Password |
 | --- | --- | --- |
-| Administrator | `admin@stockpilot.io` | `admin123` |
-| Inventory manager | `manager@stockpilot.io` | `manager123` |
+| Administrator | `mayank.admin@stockpilot.demo` | `admin123` |
+| Inventory manager | `mayank.manager@stockpilot.demo` | `manager123` |
 
 The administrator can create warehouses. The inventory manager can view the warehouse network and operate products, movements, and reports.
 
